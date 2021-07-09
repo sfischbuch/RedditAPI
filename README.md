@@ -11,7 +11,9 @@ way to authenticate but it will do for now.
 # Main praw APIs & methods
 
 # Reddit terms and concepts
-A subreddit - is a specific online community, and the posts associated with it, on the social media website Reddit. Subreddits are 
+**A subreddit** - is a specific online community, and the posts associated with it, on the social media website Reddit. Subreddits are 
 dedicated to a particular topic that people write about, and they're denoted by /r/, followed by the subreddit's name, e.g., /r/gaming.
-Submission -
-Redditor - a registered user of the website Reddit.
+
+**Submission** -
+
+**Redditor** - a registered user of the website Reddit.
