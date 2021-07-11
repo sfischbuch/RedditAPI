@@ -1,4 +1,10 @@
-*.pyc
+# Data Files
+data
+
+# Secrets 
 praw.ini
+
+# System
 *.swp
 env
+*.pyc
