@@ -1,7 +1,10 @@
 Place to write TODOs and other useful notes. 
 
-Ideas: 
-1. Create an interface via main function to be able to create custom data sets.  
-
-TODOs:
+TODOs & Ideas:
 1. Increase the speed and efficiency of the redditpraw script. 
+2. Make this an importable module and script. 
+3. Write tests
+4. Create a setup script 
+5. Allow others to use this. 
+6. Create an interface via main function to be able to create custom data sets.
+7. Create a web and mobile interface
