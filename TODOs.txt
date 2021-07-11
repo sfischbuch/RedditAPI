@@ -2,3 +2,6 @@ Place to write TODOs and other useful notes.
 
 Ideas: 
 1. Create an interface via main function to be able to create custom data sets.  
+
+TODOs:
+1. Increase the speed and efficiency of the redditpraw script. 
