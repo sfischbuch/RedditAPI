@@ -17,3 +17,11 @@ This is just a file to keep code that might be useful later instead of clutterin
     # print(comment.body)
     # for submission in reddit.redditor("an-average-white-guy").submissions.new(limit=10):
     # print(submission.selftext)
+
+    for submission in reddit.redditor("an-average-white-guy").submissions.new(limit=10):
+    print(submission.link_flair_text)
+
+    users = set()
+for comment in reddit.subreddit("ENFP").comments(limit=10):
+     a = comment.author
+     users.add(a)
