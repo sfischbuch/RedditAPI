@@ -1,0 +1,1 @@
+"""An AI module that reads your Myers-Briggs Type Indicator."""

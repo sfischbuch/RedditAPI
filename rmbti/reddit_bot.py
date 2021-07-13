@@ -1,4 +1,4 @@
-"""Reddit Praw
+"""An AI application that reads your Myers-Briggs Type Indicator.
 
 This script...
 """
@@ -9,13 +9,13 @@ from itertools import cycle
 import time
 import sys
 
-class redditpraw:
+class RedditBot:
     pass
 
 reddit = praw.Reddit('bot1', config_interpolation="basic")
 
 #All possible MBTI Types
-MTBTI_TYPES = ["ISTJ", "ISTP", "ISFJ", "ISFP", "INFJ", "INFP", "INTJ", "INTP", 
+MBTI_TYPES = ["ISTJ", "ISTP", "ISFJ", "ISFP", "INFJ", "INFP", "INTJ", "INTP", 
             "ESTP", "ESTJ", "ESFP", "ESFJ", "ENFP", "ENFJ", "ENTP", "ENTJ"]
 COLS = ["redditor", "type", "text"]
 
@@ -105,7 +105,7 @@ def get_user_type(user):
     type = ""
     flairs = []
     for submission in reddit.redditor(user).submissions.new(limit=100):
-        if submission.author_flair_text in MTBTI_TYPES:
+        if submission.author_flair_text in MBTI_TYPES:
             flairs.append(submission.author_flair_text)
     if flairs:
         type = max(set(flairs), key=flairs.count)
@@ -144,9 +144,9 @@ if (__name__ == '__main__'):
         file_name (string): name of of the file you want to save your data under.
         
     Examples:
-        python3 redditpraw.py 'ENFJ' 'test_file'
-        python3 redditpraw.py d 'test_file'
-        python3 redditpraw.py
+        python3 RedditBot.py 'ENFJ' 'test_file'
+        python3 RedditBot.py d 'test_file'
+        python3 RedditBot.py
     #########################################################################################
     #########################################################################################
 
