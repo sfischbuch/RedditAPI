@@ -1,14 +1,20 @@
 # Data Files
-data
+# data
 
 # Secrets 
 praw.ini
 
 # System
 *.swp
-env
 *.pyc
 __pycache__
 
-#Jupyter Notebook
+# virtualenv
+.venv/
+venv/
+ENV/
+env
+
+#IPython Notebook
+.ipynb_checkpoints
 *.ipynb
