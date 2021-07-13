@@ -63,7 +63,7 @@ def get_user_texts(user):
     
     return texts
 
-def generate_data(reddit_data):
+def generate_data(data):
     """Generate a data frame with the given data.
 
     Parameters
@@ -72,18 +72,14 @@ def generate_data(reddit_data):
         The preprocessed data. It is a list of tuples.  
     """
 
-    if reddit_data:
+    if data:
+        reddit_data = [item for sublist in data for item in sublist]
         reddit_df = pd.DataFrame(reddit_data, columns=COLS)
         return reddit_df
 
 def generate_data_file(reddit_df, file_name):
     """Generate a data file and save that 
     object as a csv with the name of file_name.
-
-    Parameters
-    ----------
-    file_name : str
-        The name of the file. 
     """
 
     reddit_df.to_csv('.\data\{}.csv'.format(file_name), index = False, header=True)
@@ -116,52 +112,22 @@ def get_user_type(user):
     
     return type
 
-def process_data_to_file(subreddit_group, file_name):
-    """This method acts to pull everything together and generate 
-    a data file. 
 
-    Parameters
-    ----------
-    subreddit_group : str
-        a subreddit you want to search.
-    file_name : str
-        the name of the file you want to save your data under.
-    """
-
+def process_data(subreddit_group, file_name=None):
     users = get_redditors_from_subreddit(subreddit_group)
     data = []
     for user in users:
         type = get_user_type(user)
-        texts = get_user_texts(user)
-            
-        if texts:
-            data.append(list(zip(cycle([user]), cycle([type]), texts)))
+        if type != "":
+            texts = get_user_texts(user)
+                
+            if texts:
+                data.append(list(zip(cycle([user]), cycle([type]), texts)))
 
-    reddit_data = [item for sublist in data for item in sublist]
-    reddit_df = generate_data(reddit_data)
-    generate_data_file(reddit_df, file_name)
-
-def process_data_to_df(subreddit_group):
-    """This method acts to pull everything together and generate 
-    a data frame. 
-
-    Parameters
-    ----------
-    subreddit_group : str
-        a subreddit you want to search.
-    """
-
-    users = get_redditors_from_subreddit(subreddit_group)
-    data = []
-    for user in users:
-        type = get_user_type(user)
-        texts = get_user_texts(user)
-            
-        if texts:
-            data.append(list(zip(cycle([user]), cycle([type]), texts)))
-
-    reddit_data = [item for sublist in data for item in sublist]
-    reddit_df = generate_data(reddit_data)
+    reddit_df = generate_data(data)
+    if file_name is not None:
+        generate_data_file(reddit_df, file_name)
+        return
     return reddit_df
 
 if (__name__ == '__main__'):
@@ -198,4 +164,4 @@ if (__name__ == '__main__'):
             file_name = sys.argv[2]
 
     print("Generating data...")
-    process_data_to_file(subreddit_group, file_name)
+    process_data(subreddit_group, file_name)
