@@ -12,106 +12,11 @@ import sys
 class RedditBot:
     pass
 
-reddit = praw.Reddit('bot1', config_interpolation="basic")
-
-#All possible MBTI Types
 MBTI_TYPES = ["ISTJ", "ISTP", "ISFJ", "ISFP", "INFJ", "INFP", "INTJ", "INTP", 
             "ESTP", "ESTJ", "ESFP", "ESFJ", "ENFP", "ENFJ", "ENTP", "ENTJ"]
 COLS = ["redditor", "type", "text"]
 
-def get_redditors_from_subreddit(subreddit_group):
-    """Goes through comments of a subreddit and adds the author of 
-    the comment to a set of redditors. This is a workaround until we 
-    find or use an API that gets all redditors from a subreddit. 
-
-    Parameters
-    ----------
-    subreddit_group : str
-        subreddit to search.
-
-    Returns
-    -------
-    users
-        a set of redditors stored in the variable users.
-    """
-
-    users = set()
-    for comment in reddit.subreddit(subreddit_group).comments(limit=100):
-        author = comment.author
-        users.add(str(author))
-    return users
-
-def get_user_texts(user):
-    """Goes through the user's submissions and extracts their text into
-    a list of texts.
-
-    Parameters
-    ----------
-    user : str
-        a user or redditor.
-
-    Returns
-    -------
-    texts : list
-        a list of the user's texts.
-    """
-
-    texts = []
-    for submission in reddit.redditor(user).submissions.new(limit=10):
-        if submission.selftext:
-            texts.append(submission.selftext)
-    
-    return texts
-
-def generate_data(data):
-    """Generate a data frame with the given data.
-
-    Parameters
-    ----------
-    reddit_data : list
-        The preprocessed data. It is a list of tuples.  
-    """
-
-    if data:
-        reddit_data = [item for sublist in data for item in sublist]
-        reddit_df = pd.DataFrame(reddit_data, columns=COLS)
-        return reddit_df
-
-def generate_data_file(reddit_df, file_name):
-    """Generate a data file and save that 
-    object as a csv with the name of file_name.
-    """
-
-    reddit_df.to_csv('.\data\{}.csv'.format(file_name), index = False, header=True)
-
-def get_user_type(user):
-    """Given a user or redditor retruns the user's personality 
-    type based off of what the user used as their flair. Since 
-    a user may have updated their flair over time this method
-    also ensures that it returns only a flair that is in the list of
-    MTBTI types. 
-
-    Parameters
-    ----------
-    user : str
-        a user or redditor.
-
-    Returns
-    -------
-    users
-        a user's personality type.
-    """
-
-    type = ""
-    flairs = []
-    for submission in reddit.redditor(user).submissions.new(limit=100):
-        if submission.author_flair_text in MBTI_TYPES:
-            flairs.append(submission.author_flair_text)
-    if flairs:
-        type = max(set(flairs), key=flairs.count)
-    
-    return type
-
+reddit = praw.Reddit('bot1', config_interpolation="basic")
 
 def process_data(subreddit_group, file_name=None):
     users = get_redditors_from_subreddit(subreddit_group)
@@ -129,6 +34,63 @@ def process_data(subreddit_group, file_name=None):
         generate_data_file(reddit_df, file_name)
         return
     return reddit_df
+
+def generate_data(data):
+    """Generate a data frame with the given data."""
+
+    if data:
+        reddit_data = [item for sublist in data for item in sublist]
+        reddit_df = pd.DataFrame(reddit_data, columns=COLS)
+        return reddit_df
+
+def generate_data_file(reddit_df, file_name):
+    """Generate a data file and save that 
+    object as a csv with the name of file_name.
+    """
+
+    reddit_df.to_csv('.\data\{}.csv'.format(file_name), index = False, header=True)
+
+def get_redditors_from_subreddit(subreddit_group):
+    """Goes through comments of a subreddit and adds the author of 
+    the comment to a set of redditors. This is a workaround until we 
+    find or use an API that gets all redditors from a subreddit. 
+    """
+
+    users = set()
+    for comment in reddit.subreddit(subreddit_group).comments(limit=100):
+        author = comment.author
+        users.add(str(author))
+    return users
+
+def get_user_texts(user):
+    """Goes through the user's submissions and extracts their text into
+    a list of texts.
+    """
+
+    texts = []
+    for submission in reddit.redditor(user).submissions.new(limit=10):
+        if submission.selftext:
+            texts.append(submission.selftext)
+    
+    return texts
+
+def get_user_type(user):
+    """Given a user or redditor retruns the user's personality 
+    type based off of what the user used as their flair. Since 
+    a user may have updated their flair over time this method
+    also ensures that it returns only a flair that is in the list of
+    MTBTI types. 
+    """
+
+    type = ""
+    flairs = []
+    for submission in reddit.redditor(user).submissions.new(limit=100):
+        if submission.author_flair_text in MBTI_TYPES:
+            flairs.append(submission.author_flair_text)
+    if flairs:
+        type = max(set(flairs), key=flairs.count)
+    
+    return type
 
 if (__name__ == '__main__'):
     time = time.time()
