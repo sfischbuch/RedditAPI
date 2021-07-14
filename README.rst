@@ -19,6 +19,7 @@ way to authenticate but it will do for now. We plan on moving toward a token bas
 | password=...
 | username=...
 
+
 3. Install all modules in requirements.txt using ``pip install -r requirements.txt``. If you still need to import modules then run ``pip install <module>`` and make a note taht we need to add that module to the requirements.txt. ``requirements.txt`` will be replaced when we establish our setup.py. 
 
 4. Configure and create a Reddit intances with ``praw.Reddit('YourBot')`` inside of ``redditbot.py``. Just modify this line of code: ``reddit = praw.Reddit('bot1', config_interpolation="basic")``. config_interpolation="basic" is not necessary unless you plan on adding more detail to your bot such as author and version. 
