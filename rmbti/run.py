@@ -1,4 +1,6 @@
-import reddit_bot as rb
+"""Can be used to run modules and generate data."""
+
+import redditbot as rb
 
 # data = rb.process_data("ENFJ")
 # # data = rb.process_data("ENFJ")
