@@ -4,7 +4,7 @@ rmbti - An AI application that determines your Myers-Briggs Type Indicator.
 Right now the app only contains a bot that mines data from Reddit. In the future we are planning on using that data along with some machine learning algorithms to be able to predict people's types. 
 
 Setup
-========================
+=========================
 
 We are currently working on a setup.py script that will make setting this up really easy. For now just clone the project and follow the steps below.
 
