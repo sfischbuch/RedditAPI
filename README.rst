@@ -11,9 +11,13 @@ your redirect uri or your user context such as a web site.
 way to authenticate but it will do for now. The password and username are the ones you use to sign into your reddit account. It should look like this:
 
 [YourBot]
+
 client_id=...
+
 client_secret=...
+
 password=...
+
 username=...
 
 3. Configure and create a Reddit intances with ``praw.Reddit('YourBot')``.
